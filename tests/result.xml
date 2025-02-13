@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="10" skipped="0" tests="14" time="53.911" timestamp="2025-02-13T16:31:49.914425+00:00" hostname="CAIOAZA"><testcase classname="test_Checkout.TestCart" name="test_1_verify_items_data[setup0]" time="11.221"><failure message="AssertionError: Cart items mismatch! Expected: {'iphone X': [5, '$24.99'], 'Nokia Edge': [1, '$24.99'], 'Blackberry': [2, '$24.99']}, but got: {'iphone X': [5, '₹. 100000'], 'Nokia Edge': [1, '₹. 65000'], 'Blackberry': [2, '₹. 50000']}&#10;assert {'Blackberry'... '₹. 100000']} == {'Blackberry'...[5, '$24.99']}&#10;  &#10;  Differing items:&#10;  {'Nokia Edge': [1, '₹. 65000']} != {'Nokia Edge': [1, '$24.99']}&#10;  {'Blackberry': [2, '₹. 50000']} != {'Blackberry': [2, '$24.99']}&#10;  {'iphone X': [5, '₹. 100000']} != {'iphone X': [5, '$24.99']}&#10;  &#10;  Full diff:&#10;    {&#10;        'Blackberry': [&#10;            2,&#10;  -         '$24.99',&#10;  +         '₹. 50000',&#10;        ],&#10;        'Nokia Edge': [&#10;            1,&#10;  -         '$24.99',&#10;  +         '₹. 65000',&#10;        ],&#10;        'iphone X': [&#10;            5,&#10;  -         '$24.99',&#10;  +         '₹. 100000',&#10;        ],&#10;    }">self = &lt;PythonSelFramework.tests.test_Checkout.TestCart object at 0x000001F915EB51D0&gt;
+
+    def test_1_verify_items_data(self):
+        #TC2 - Verify if the items added to the cart have the same price and name displayed in products page
+        logger = self.getLogger()
+        try:
+            expected_cart, checkoutpage = self.add_three_products_to_cart()  # captura apenas a seunfda variavel do return
+            checkoutpage.checkOutItems()  # calling the method is returning a click and also the creation of the object confirmPage
+            cart_products = checkoutpage.getCheckOutProducts()[:-2]
+            cart_product_dict = {}
+            for cart_product in cart_products:  # exclude two last items
+                item_name = checkoutpage.getCheckOutProductTitle(cart_product).text
+                item_price = checkoutpage.getCheckOutProductPrice(cart_product).text
+                # print(item_name)
+                item_quantity = int(checkoutpage.getCheckOutProductQuantity(cart_product).get_attribute('value'))
+                cart_product_dict[item_name] = [item_quantity, item_price]
+            #print(cart_product_dict)
+            logger.info("Verifying cart items: %s", json.dumps(cart_product_dict, indent=2))
+&gt;           assert cart_product_dict == expected_cart, f"Cart items mismatch! Expected: {expected_cart}, but got: {cart_product_dict}"
+E           AssertionError: Cart items mismatch! Expected: {'iphone X': [5, '$24.99'], 'Nokia Edge': [1, '$24.99'], 'Blackberry': [2, '$24.99']}, but got: {'iphone X': [5, '₹. 100000'], 'Nokia Edge': [1, '₹. 65000'], 'Blackberry': [2, '₹. 50000']}
+E           assert {'Blackberry'... '₹. 100000']} == {'Blackberry'...[5, '$24.99']}
+E             
+E             Differing items:
+E             {'Nokia Edge': [1, '₹. 65000']} != {'Nokia Edge': [1, '$24.99']}
+E             {'Blackberry': [2, '₹. 50000']} != {'Blackberry': [2, '$24.99']}
+E             {'iphone X': [5, '₹. 100000']} != {'iphone X': [5, '$24.99']}
+E             
+E             Full diff:
+E               {
+E                   'Blackberry': [
+E                       2,
+E             -         '$24.99',
+E             +         '₹. 50000',
+E                   ],
+E                   'Nokia Edge': [
+E                       1,
+E             -         '$24.99',
+E             +         '₹. 65000',
+E                   ],
+E                   'iphone X': [
+E                       5,
+E             -         '$24.99',
+E             +         '₹. 100000',
+E                   ],
+E               }
+
+test_Checkout.py:57: AssertionError</failure></testcase><testcase classname="test_Checkout.TestCart" name="test_2_verify_quantity_input[setup0-9-9]" time="3.179"><failure message="AssertionError: assert 585000 == ('₹. 65000' * 9)">self = &lt;PythonSelFramework.tests.test_Checkout.TestCart object at 0x000001F915EA89D0&gt;
+quantity = 9, expected_total = 9
+
+    @pytest.mark.parametrize("quantity, expected_total", [(9, 9), (0, 0)])
+    def test_2_verify_quantity_input(self, quantity, expected_total):
+        # TC Change quantity typing number over 0 and 0
+        _, checkoutpage = self.add_three_products_to_cart()
+        checkoutpage.checkOutItems()
+        cart_products = checkoutpage.getCheckOutProducts()
+        quantity_input = checkoutpage.getCheckOutProductQuantity(cart_products[1])
+        price_unit = checkoutpage.getCheckOutProductPrice(cart_products[1]).text
+    
+        quantity_input.clear()
+        quantity_input.send_keys(str(quantity))
+    
+        price_total = int(checkoutpage.getCheckOutProductPriceTotal(cart_products[1]).text.replace("₹. ", ''))
+&gt;       assert price_total == price_unit * expected_total
+E       AssertionError: assert 585000 == ('₹. 65000' * 9)
+
+test_Checkout.py:81: AssertionError</failure></testcase><testcase classname="test_Checkout.TestCart" name="test_2_verify_quantity_input[setup0-0-0]" time="2.532"><failure message="AssertionError: assert 0 == ('₹. 65000' * 0)">self = &lt;PythonSelFramework.tests.test_Checkout.TestCart object at 0x000001F915EA8C30&gt;
+quantity = 0, expected_total = 0
+
+    @pytest.mark.parametrize("quantity, expected_total", [(9, 9), (0, 0)])
+    def test_2_verify_quantity_input(self, quantity, expected_total):
+        # TC Change quantity typing number over 0 and 0
+        _, checkoutpage = self.add_three_products_to_cart()
+        checkoutpage.checkOutItems()
+        cart_products = checkoutpage.getCheckOutProducts()
+        quantity_input = checkoutpage.getCheckOutProductQuantity(cart_products[1])
+        price_unit = checkoutpage.getCheckOutProductPrice(cart_products[1]).text
+    
+        quantity_input.clear()
+        quantity_input.send_keys(str(quantity))
+    
+        price_total = int(checkoutpage.getCheckOutProductPriceTotal(cart_products[1]).text.replace("₹. ", ''))
+&gt;       assert price_total == price_unit * expected_total
+E       AssertionError: assert 0 == ('₹. 65000' * 0)
+
+test_Checkout.py:81: AssertionError</failure></testcase><testcase classname="test_Checkout.TestCart" name="test_6_checkout_emptycart_button[setup0]" time="0.849"><failure message="assert (2 == 2 and not True)&#10; +  where 2 = len([&lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;97550ca407a4e2ac1b11d77453f4f1e7&quot;, element=&quot;f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.303&quot;)&gt;, &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;97550ca407a4e2ac1b11d77453f4f1e7&quot;, element=&quot;f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.304&quot;)&gt;])&#10; +    where [&lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;97550ca407a4e2ac1b11d77453f4f1e7&quot;, element=&quot;f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.303&quot;)&gt;, &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;97550ca407a4e2ac1b11d77453f4f1e7&quot;, element=&quot;f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.304&quot;)&gt;] = getCheckOutProducts()&#10; +      where getCheckOutProducts = &lt;PythonSelFramework.pageObjects.CheckoutPage.CheckOutPage object at 0x000001F915EAA190&gt;.getCheckOutProducts&#10; +  and   True = is_displayed()&#10; +    where is_displayed = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;97550ca407a4e2ac1b11d77453f4f1e7&quot;, element=&quot;f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.305&quot;)&gt;.is_displayed&#10; +      where &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;97550ca407a4e2ac1b11d77453f4f1e7&quot;, element=&quot;f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.305&quot;)&gt; = checkOutConfirm()&#10; +        where checkOutConfirm = &lt;PythonSelFramework.pageObjects.CheckoutPage.CheckOutPage object at 0x000001F915EAA190&gt;.checkOutConfirm">self = &lt;PythonSelFramework.tests.test_Checkout.TestCart object at 0x000001F915B369C0&gt;
+
+    def test_6_checkout_emptycart_button(self):
+        #TC6 - Verify checkout button is not displayed when cart is empty
+        homePage = HomePage(self.driver)
+        checkoutpage = homePage.shopItems()
+        checkoutpage.checkOutItems()
+    
+&gt;       assert len(checkoutpage.getCheckOutProducts()) == 2 and not  checkoutpage.checkOutConfirm().is_displayed()
+E       assert (2 == 2 and not True)
+E        +  where 2 = len([&lt;selenium.webdriver.remote.webelement.WebElement (session="97550ca407a4e2ac1b11d77453f4f1e7", element="f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.303")&gt;, &lt;selenium.webdriver.remote.webelement.WebElement (session="97550ca407a4e2ac1b11d77453f4f1e7", element="f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.304")&gt;])
+E        +    where [&lt;selenium.webdriver.remote.webelement.WebElement (session="97550ca407a4e2ac1b11d77453f4f1e7", element="f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.303")&gt;, &lt;selenium.webdriver.remote.webelement.WebElement (session="97550ca407a4e2ac1b11d77453f4f1e7", element="f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.304")&gt;] = getCheckOutProducts()
+E        +      where getCheckOutProducts = &lt;PythonSelFramework.pageObjects.CheckoutPage.CheckOutPage object at 0x000001F915EAA190&gt;.getCheckOutProducts
+E        +  and   True = is_displayed()
+E        +    where is_displayed = &lt;selenium.webdriver.remote.webelement.WebElement (session="97550ca407a4e2ac1b11d77453f4f1e7", element="f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.305")&gt;.is_displayed
+E        +      where &lt;selenium.webdriver.remote.webelement.WebElement (session="97550ca407a4e2ac1b11d77453f4f1e7", element="f.7F98AA0033B9397BC2EC139CC045CB5F.d.C09C0D58B032AA23CC7DAA7DE19467D6.e.305")&gt; = checkOutConfirm()
+E        +        where checkOutConfirm = &lt;PythonSelFramework.pageObjects.CheckoutPage.CheckOutPage object at 0x000001F915EAA190&gt;.checkOutConfirm
+
+test_Checkout.py:127: AssertionError</failure></testcase><testcase classname="test_Checkout.TestCart" name="test_7_remove_product[setup0]" time="2.514" /><testcase classname="test_Checkout.TestCart" name="test_9_verify_total[setup0]" time="2.959" /><testcase classname="test_Checkout.TestCart" name="test_10_verify_checkout_empty_cart[setup0]" time="2.765"><failure message="AssertionError: assert '' == 'Checkout ( 8 )'&#10;  &#10;  - Checkout ( 8 )">self = &lt;PythonSelFramework.tests.test_Checkout.TestCart object at 0x000001F915EAF070&gt;
+
+    def test_10_verify_checkout_empty_cart(self):
+        _, checkoutpage = self.add_three_products_to_cart() #captura apenas a seunfda variavel do return
+&gt;       assert checkoutpage.getCheckoutButton().text ==  "Checkout ( 8 )"
+E       AssertionError: assert '' == 'Checkout ( 8 )'
+E         
+E         - Checkout ( 8 )
+
+test_Checkout.py:163: AssertionError</failure></testcase><testcase classname="test_Checkout.TestCart" name="test_1_verify_items_data[setup1]" time="10.347"><failure message="AssertionError: Cart items mismatch! Expected: {'iphone X': [5, '$24.99'], 'Nokia Edge': [1, '$24.99'], 'Blackberry': [2, '$24.99']}, but got: {'iphone X': [5, '₹. 100000'], 'Nokia Edge': [1, '₹. 65000'], 'Blackberry': [2, '₹. 50000']}&#10;assert {'Blackberry'... '₹. 100000']} == {'Blackberry'...[5, '$24.99']}&#10;  &#10;  Differing items:&#10;  {'Nokia Edge': [1, '₹. 65000']} != {'Nokia Edge': [1, '$24.99']}&#10;  {'Blackberry': [2, '₹. 50000']} != {'Blackberry': [2, '$24.99']}&#10;  {'iphone X': [5, '₹. 100000']} != {'iphone X': [5, '$24.99']}&#10;  &#10;  Full diff:&#10;    {&#10;        'Blackberry': [&#10;            2,&#10;  -         '$24.99',&#10;  +         '₹. 50000',&#10;        ],&#10;        'Nokia Edge': [&#10;            1,&#10;  -         '$24.99',&#10;  +         '₹. 65000',&#10;        ],&#10;        'iphone X': [&#10;            5,&#10;  -         '$24.99',&#10;  +         '₹. 100000',&#10;        ],&#10;    }">self = &lt;PythonSelFramework.tests.test_Checkout.TestCart object at 0x000001F915EB56D0&gt;
+
+    def test_1_verify_items_data(self):
+        #TC2 - Verify if the items added to the cart have the same price and name displayed in products page
+        logger = self.getLogger()
+        try:
+            expected_cart, checkoutpage = self.add_three_products_to_cart()  # captura apenas a seunfda variavel do return
+            checkoutpage.checkOutItems()  # calling the method is returning a click and also the creation of the object confirmPage
+            cart_products = checkoutpage.getCheckOutProducts()[:-2]
+            cart_product_dict = {}
+            for cart_product in cart_products:  # exclude two last items
+                item_name = checkoutpage.getCheckOutProductTitle(cart_product).text
+                item_price = checkoutpage.getCheckOutProductPrice(cart_product).text
+                # print(item_name)
+                item_quantity = int(checkoutpage.getCheckOutProductQuantity(cart_product).get_attribute('value'))
+                cart_product_dict[item_name] = [item_quantity, item_price]
+            #print(cart_product_dict)
+            logger.info("Verifying cart items: %s", json.dumps(cart_product_dict, indent=2))
+&gt;           assert cart_product_dict == expected_cart, f"Cart items mismatch! Expected: {expected_cart}, but got: {cart_product_dict}"
+E           AssertionError: Cart items mismatch! Expected: {'iphone X': [5, '$24.99'], 'Nokia Edge': [1, '$24.99'], 'Blackberry': [2, '$24.99']}, but got: {'iphone X': [5, '₹. 100000'], 'Nokia Edge': [1, '₹. 65000'], 'Blackberry': [2, '₹. 50000']}
+E           assert {'Blackberry'... '₹. 100000']} == {'Blackberry'...[5, '$24.99']}
+E             
+E             Differing items:
+E             {'Nokia Edge': [1, '₹. 65000']} != {'Nokia Edge': [1, '$24.99']}
+E             {'Blackberry': [2, '₹. 50000']} != {'Blackberry': [2, '$24.99']}
+E             {'iphone X': [5, '₹. 100000']} != {'iphone X': [5, '$24.99']}
+E             
+E             Full diff:
+E               {
+E                   'Blackberry': [
+E                       2,
+E             -         '$24.99',
+E             +         '₹. 50000',
+E                   ],
+E                   'Nokia Edge': [
+E                       1,
+E             -         '$24.99',
+E             +         '₹. 65000',
+E                   ],
+E                   'iphone X': [
+E                       5,
+E             -         '$24.99',
+E             +         '₹. 100000',
+E                   ],
+E               }
+
+test_Checkout.py:57: AssertionError</failure></testcase><testcase classname="test_Checkout.TestCart" name="test_2_verify_quantity_input[setup1-9-9]" time="2.481"><failure message="AssertionError: assert 585000 == ('₹. 65000' * 9)">self = &lt;PythonSelFramework.tests.test_Checkout.TestCart object at 0x000001F915ED1EB0&gt;
+quantity = 9, expected_total = 9
+
+    @pytest.mark.parametrize("quantity, expected_total", [(9, 9), (0, 0)])
+    def test_2_verify_quantity_input(self, quantity, expected_total):
+        # TC Change quantity typing number over 0 and 0
+        _, checkoutpage = self.add_three_products_to_cart()
+        checkoutpage.checkOutItems()
+        cart_products = checkoutpage.getCheckOutProducts()
+        quantity_input = checkoutpage.getCheckOutProductQuantity(cart_products[1])
+        price_unit = checkoutpage.getCheckOutProductPrice(cart_products[1]).text
+    
+        quantity_input.clear()
+        quantity_input.send_keys(str(quantity))
+    
+        price_total = int(checkoutpage.getCheckOutProductPriceTotal(cart_products[1]).text.replace("₹. ", ''))
+&gt;       assert price_total == price_unit * expected_total
+E       AssertionError: assert 585000 == ('₹. 65000' * 9)
+
+test_Checkout.py:81: AssertionError</failure></testcase><testcase classname="test_Checkout.TestCart" name="test_2_verify_quantity_input[setup1-0-0]" time="2.927"><failure message="AssertionError: assert 0 == ('₹. 65000' * 0)">self = &lt;PythonSelFramework.tests.test_Checkout.TestCart object at 0x000001F915B367A0&gt;
+quantity = 0, expected_total = 0
+
+    @pytest.mark.parametrize("quantity, expected_total", [(9, 9), (0, 0)])
+    def test_2_verify_quantity_input(self, quantity, expected_total):
+        # TC Change quantity typing number over 0 and 0
+        _, checkoutpage = self.add_three_products_to_cart()
+        checkoutpage.checkOutItems()
+        cart_products = checkoutpage.getCheckOutProducts()
+        quantity_input = checkoutpage.getCheckOutProductQuantity(cart_products[1])
+        price_unit = checkoutpage.getCheckOutProductPrice(cart_products[1]).text
+    
+        quantity_input.clear()
+        quantity_input.send_keys(str(quantity))
+    
+        price_total = int(checkoutpage.getCheckOutProductPriceTotal(cart_products[1]).text.replace("₹. ", ''))
+&gt;       assert price_total == price_unit * expected_total
+E       AssertionError: assert 0 == ('₹. 65000' * 0)
+
+test_Checkout.py:81: AssertionError</failure></testcase><testcase classname="test_Checkout.TestCart" name="test_6_checkout_emptycart_button[setup1]" time="0.446"><failure message="assert (2 == 2 and not True)&#10; +  where 2 = len([&lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;75207b6ebad76441a2144dec60c5a4b7&quot;, element=&quot;f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.217&quot;)&gt;, &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;75207b6ebad76441a2144dec60c5a4b7&quot;, element=&quot;f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.218&quot;)&gt;])&#10; +    where [&lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;75207b6ebad76441a2144dec60c5a4b7&quot;, element=&quot;f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.217&quot;)&gt;, &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;75207b6ebad76441a2144dec60c5a4b7&quot;, element=&quot;f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.218&quot;)&gt;] = getCheckOutProducts()&#10; +      where getCheckOutProducts = &lt;PythonSelFramework.pageObjects.CheckoutPage.CheckOutPage object at 0x000001F915ED5B80&gt;.getCheckOutProducts&#10; +  and   True = is_displayed()&#10; +    where is_displayed = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;75207b6ebad76441a2144dec60c5a4b7&quot;, element=&quot;f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.219&quot;)&gt;.is_displayed&#10; +      where &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;75207b6ebad76441a2144dec60c5a4b7&quot;, element=&quot;f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.219&quot;)&gt; = checkOutConfirm()&#10; +        where checkOutConfirm = &lt;PythonSelFramework.pageObjects.CheckoutPage.CheckOutPage object at 0x000001F915ED5B80&gt;.checkOutConfirm">self = &lt;PythonSelFramework.tests.test_Checkout.TestCart object at 0x000001F915AA3850&gt;
+
+    def test_6_checkout_emptycart_button(self):
+        #TC6 - Verify checkout button is not displayed when cart is empty
+        homePage = HomePage(self.driver)
+        checkoutpage = homePage.shopItems()
+        checkoutpage.checkOutItems()
+    
+&gt;       assert len(checkoutpage.getCheckOutProducts()) == 2 and not  checkoutpage.checkOutConfirm().is_displayed()
+E       assert (2 == 2 and not True)
+E        +  where 2 = len([&lt;selenium.webdriver.remote.webelement.WebElement (session="75207b6ebad76441a2144dec60c5a4b7", element="f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.217")&gt;, &lt;selenium.webdriver.remote.webelement.WebElement (session="75207b6ebad76441a2144dec60c5a4b7", element="f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.218")&gt;])
+E        +    where [&lt;selenium.webdriver.remote.webelement.WebElement (session="75207b6ebad76441a2144dec60c5a4b7", element="f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.217")&gt;, &lt;selenium.webdriver.remote.webelement.WebElement (session="75207b6ebad76441a2144dec60c5a4b7", element="f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.218")&gt;] = getCheckOutProducts()
+E        +      where getCheckOutProducts = &lt;PythonSelFramework.pageObjects.CheckoutPage.CheckOutPage object at 0x000001F915ED5B80&gt;.getCheckOutProducts
+E        +  and   True = is_displayed()
+E        +    where is_displayed = &lt;selenium.webdriver.remote.webelement.WebElement (session="75207b6ebad76441a2144dec60c5a4b7", element="f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.219")&gt;.is_displayed
+E        +      where &lt;selenium.webdriver.remote.webelement.WebElement (session="75207b6ebad76441a2144dec60c5a4b7", element="f.F35D62DC794B1A89B5DD6D279C9CB788.d.33A43BE18FFE53058E533062C6D6C785.e.219")&gt; = checkOutConfirm()
+E        +        where checkOutConfirm = &lt;PythonSelFramework.pageObjects.CheckoutPage.CheckOutPage object at 0x000001F915ED5B80&gt;.checkOutConfirm
+
+test_Checkout.py:127: AssertionError</failure></testcase><testcase classname="test_Checkout.TestCart" name="test_7_remove_product[setup1]" time="2.220" /><testcase classname="test_Checkout.TestCart" name="test_9_verify_total[setup1]" time="2.562" /><testcase classname="test_Checkout.TestCart" name="test_10_verify_checkout_empty_cart[setup1]" time="5.183"><failure message="AssertionError: assert 'Checkout ( 8 )\n(current)' == 'Checkout ( 8 )'&#10;  &#10;  - Checkout ( 8 )&#10;  + Checkout ( 8 )&#10;  ?               +&#10;  + (current)">self = &lt;PythonSelFramework.tests.test_Checkout.TestCart object at 0x000001F915F00050&gt;
+
+    def test_10_verify_checkout_empty_cart(self):
+        _, checkoutpage = self.add_three_products_to_cart() #captura apenas a seunfda variavel do return
+&gt;       assert checkoutpage.getCheckoutButton().text ==  "Checkout ( 8 )"
+E       AssertionError: assert 'Checkout ( 8 )\n(current)' == 'Checkout ( 8 )'
+E         
+E         - Checkout ( 8 )
+E         + Checkout ( 8 )
+E         ?               +
+E         + (current)
+
+test_Checkout.py:163: AssertionError</failure></testcase></testsuite></testsuites>

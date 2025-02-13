@@ -1,0 +1,257 @@
+2025-02-10 15:55:26,637 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 16:00:51,031 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 16:08:46,705 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 16:16:45,086 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 16:18:49,266 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 16:19:42,494 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 16:22:01,942 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 19:31:57,525 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 19:31:57,656 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-10 19:50:23,854 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 19:50:24,008 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-10 19:59:53,022 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 19:59:53,149 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-10 20:02:59,323 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 20:02:59,482 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-10 20:22:03,312 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 20:22:03,561 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-10 20:28:19,073 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 20:28:19,188 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-10 20:39:34,613 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 20:39:35,033 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-10 20:41:11,278 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 20:41:11,519 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-10 20:47:08,264 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 20:47:09,677 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-10 21:04:42,261 : ERROR : test_1_verify_items_data :sdfsd
+2025-02-10 21:04:42,467 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-11 09:11:40,003 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-11 09:26:29,866 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-11 19:37:41,164 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-11 19:40:06,065 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-11 19:54:59,782 : ERROR : test_1_verify_items_data :Assertion Failed!
+2025-02-11 20:03:57,784 : DEBUG : TestLogger : This is a debug message.
+2025-02-11 20:03:57,784 : INFO : TestLogger : This is an info message.
+2025-02-11 20:03:57,784 : WARNING : TestLogger : This is a warning message.
+2025-02-11 20:03:57,784 : ERROR : TestLogger : This is an error message.
+2025-02-11 20:03:57,784 : CRITICAL : TestLogger : This is a critical message.
+2025-02-11 20:12:31,191 : ERROR : test_1_verify_items_data :Assertion Failed! Cart items mismatch! Expected: , but got: 
+2025-02-11 20:15:52,315 : ERROR : test_1_verify_items_data :Type of expected_cart: <class 'dict'>, Type of cart_product_dict: <class 'dict'>
+2025-02-11 20:18:30,323 : ERROR : test_1_verify_items_data :Assertion Failed! Cart items mismatch! Expected: {
+  "iphone X": [
+    5,
+    "$24.99"
+  ],
+  "Nokia Edge": [
+    1,
+    "$24.99"
+  ],
+  "Blackberry": [
+    2,
+    "$24.99"
+  ]
+}, but got: {
+  "iphone X": [
+    5,
+    "\u20b9. 100000"
+  ],
+  "Nokia Edge": [
+    1,
+    "\u20b9. 65000"
+  ],
+  "Blackberry": [
+    2,
+    "\u20b9. 50000"
+  ]
+}
+2025-02-11 20:23:26,615 : ERROR : test_1_verify_items_data :Assertion Failed! Cart items mismatch! Expected: {
+  "iphone X": [
+    5,
+    "$24.99"
+  ],
+  "Nokia Edge": [
+    1,
+    "$24.99"
+  ],
+  "Blackberry": [
+    2,
+    "$24.99"
+  ]
+}, but got: {
+  "iphone X": [
+    5,
+    "\u20b9. 100000"
+  ],
+  "Nokia Edge": [
+    1,
+    "\u20b9. 65000"
+  ],
+  "Blackberry": [
+    2,
+    "\u20b9. 50000"
+  ]
+}
+2025-02-11 20:25:07,731 : INFO : test_1_verify_items_data :Verifying cart items: {
+  "iphone X": [
+    5,
+    "\u20b9. 100000"
+  ],
+  "Nokia Edge": [
+    1,
+    "\u20b9. 65000"
+  ],
+  "Blackberry": [
+    2,
+    "\u20b9. 50000"
+  ]
+}
+2025-02-11 20:25:07,736 : ERROR : test_1_verify_items_data :Assertion Failed! Cart items mismatch! Expected: {
+  "iphone X": [
+    5,
+    "$24.99"
+  ],
+  "Nokia Edge": [
+    1,
+    "$24.99"
+  ],
+  "Blackberry": [
+    2,
+    "$24.99"
+  ]
+}, but got: {
+  "iphone X": [
+    5,
+    "\u20b9. 100000"
+  ],
+  "Nokia Edge": [
+    1,
+    "\u20b9. 65000"
+  ],
+  "Blackberry": [
+    2,
+    "\u20b9. 50000"
+  ]
+}
+2025-02-11 20:32:13,912 : INFO : test_1_verify_items_data :Verifying cart items: {
+  "iphone X": [
+    5,
+    "\u20b9. 100000"
+  ],
+  "Nokia Edge": [
+    1,
+    "\u20b9. 65000"
+  ],
+  "Blackberry": [
+    2,
+    "\u20b9. 50000"
+  ]
+}
+2025-02-11 20:32:13,915 : ERROR : test_1_verify_items_data :Assertion Failed! Cart items mismatch! Expected: {
+  "iphone X": [
+    5,
+    "$24.99"
+  ],
+  "Nokia Edge": [
+    1,
+    "$24.99"
+  ],
+  "Blackberry": [
+    2,
+    "$24.99"
+  ]
+}, but got: {
+  "iphone X": [
+    5,
+    "\u20b9. 100000"
+  ],
+  "Nokia Edge": [
+    1,
+    "\u20b9. 65000"
+  ],
+  "Blackberry": [
+    2,
+    "\u20b9. 50000"
+  ]
+}
+2025-02-11 20:36:05,209 : INFO : test_1_verify_items_data :Verifying cart items: {
+  "iphone X": [
+    5,
+    "\u20b9. 100000"
+  ],
+  "Nokia Edge": [
+    1,
+    "\u20b9. 65000"
+  ],
+  "Blackberry": [
+    2,
+    "\u20b9. 50000"
+  ]
+}
+2025-02-11 20:36:05,211 : ERROR : test_1_verify_items_data :Assertion Failed! Cart items mismatch! Expected: {
+  "iphone X": [
+    5,
+    "$24.99"
+  ],
+  "Nokia Edge": [
+    1,
+    "$24.99"
+  ],
+  "Blackberry": [
+    2,
+    "$24.99"
+  ]
+}, but got: {
+  "iphone X": [
+    5,
+    "\u20b9. 100000"
+  ],
+  "Nokia Edge": [
+    1,
+    "\u20b9. 65000"
+  ],
+  "Blackberry": [
+    2,
+    "\u20b9. 50000"
+  ]
+}
+2025-02-11 20:41:13,225 : INFO : test_1_verify_items_data :Verifying cart items: {
+  "iphone X": [
+    5,
+    "\u20b9. 100000"
+  ],
+  "Nokia Edge": [
+    1,
+    "\u20b9. 65000"
+  ],
+  "Blackberry": [
+    2,
+    "\u20b9. 50000"
+  ]
+}
+2025-02-11 20:41:13,230 : ERROR : test_1_verify_items_data :Assertion Failed! Cart items mismatch! Expected: {
+  "iphone X": [
+    5,
+    "$24.99"
+  ],
+  "Nokia Edge": [
+    1,
+    "$24.99"
+  ],
+  "Blackberry": [
+    2,
+    "$24.99"
+  ]
+}, but got: {
+  "iphone X": [
+    5,
+    "\u20b9. 100000"
+  ],
+  "Nokia Edge": [
+    1,
+    "\u20b9. 65000"
+  ],
+  "Blackberry": [
+    2,
+    "\u20b9. 50000"
+  ]
+}
